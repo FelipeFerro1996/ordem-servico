@@ -25,7 +25,13 @@ class ClientesRequest extends FormRequest
     {
         return [
             'nome'=>'required|max:255|min:3',
-            'cpf'=>['required', 'string', new CpfValido, new CpfUnico($this->route('cliente')??'')]
+            'cpf'=>['required', 'string', new CpfValido, new CpfUnico($this->route('cliente')??'')],
+            'rua' => 'required|string',
+            'numero' => 'required|string',
+            'bairro' => 'required|string',
+            'cidade' => 'required|string',
+            'estado' => 'required|string',
+            'cep' => 'required|string',
         ];
     }
 }

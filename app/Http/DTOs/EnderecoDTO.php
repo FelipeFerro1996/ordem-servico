@@ -2,14 +2,15 @@
 
 namespace App\Http\DTOs;
 
-use PhpParser\Node\Expr\Cast\Array_;
-
-class ClientesDTO
+class EnderecoDTO
 {
     public function __construct(
-        public readonly string $nome,
-        public readonly string $cpf,
-        public readonly EnderecoDTO $enderecoDto
+        public readonly string $rua,
+        public readonly string $cep,
+        public readonly string $bairro,
+        public readonly string $numero,
+        public readonly string $cidade,
+        public readonly string $estado
     ) {}
 
     public static function fromArray(array $data): self
@@ -21,5 +22,4 @@ class ClientesDTO
     {
         return get_object_vars($this);
     }
-
 }

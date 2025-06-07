@@ -23,4 +23,8 @@ class Clientes extends Model
             }
         );
     } 
+
+    public function endereco(){
+        return $this->hasOne(Endereco::class);
+    }
 }

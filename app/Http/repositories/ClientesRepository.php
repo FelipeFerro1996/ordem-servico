@@ -12,7 +12,7 @@ class ClientesRepository implements ClientesInterface
     public function getAllClientes(){
         $clientes = new Clientes();
 
-        return $clientes->paginate(10);
+        return $clientes->with('endereco')->paginate(10);
     }
 
     public function createUpdateCliente(ClientesDTO $dto, $id = NULL): array {
@@ -25,11 +25,22 @@ class ClientesRepository implements ClientesInterface
                 $cliente = Clientes::create($dto->toArray());
             }
 
+            $cliente->endereco()->updateOrCreate(
+                ['clientes_id' => $cliente->id], // condição
+                [
+                    'rua' => $dto->enderecoDto->rua,
+                    'numero' => $dto->enderecoDto->numero,
+                    'bairro' => $dto->enderecoDto->bairro,
+                    'cidade' => $dto->enderecoDto->cidade,
+                    'estado' => $dto->enderecoDto->estado,
+                    'cep' => $dto->enderecoDto->cep,
+                ]
+            );
 
             return [
                 'success' => true,
                 'message' => 'Cliente salvo com sucesso',
-                'data' => $cliente
+                'data' => $cliente->load('endereco')
             ];
 
         }catch(Exception $e){

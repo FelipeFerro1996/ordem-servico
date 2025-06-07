@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\DTOs\ClientesDTO;
+use App\Http\DTOs\EnderecoDTO;
 use App\Http\interfaces\ClientesInterface;
 use App\Http\Requests\ClientesRequest;
 use Illuminate\Http\Request;
@@ -31,7 +32,21 @@ class ClientesController extends Controller
      */
     public function store(ClientesRequest $request)
     {
-        $clienteDto = ClientesDTO::fromArray($request->validated());
+        $enderecoDTO = new EnderecoDTO(
+            rua: $request->input('rua'),
+            numero: $request->input('numero'),
+            bairro: $request->input('bairro'),
+            cidade: $request->input('cidade'),
+            estado: $request->input('estado'),
+            cep: $request->input('cep')
+        );
+    
+        $clienteDto = new ClientesDTO(
+            nome: $request->input('nome'),
+            cpf: $request->input('cpf'),
+            enderecoDto: $enderecoDTO
+        );
+        //$clienteDto = ClientesDTO::fromArray($request->validated());
 
         $response = $this->clientes_repository->createUpdateCliente($clienteDto);
 
@@ -51,7 +66,22 @@ class ClientesController extends Controller
      */
     public function update(ClientesRequest $request, $id)
     {
-        $clienteDto = ClientesDTO::fromArray($request->validated());
+
+        $enderecoDTO = new EnderecoDTO(
+            rua: $request->input('rua'),
+            numero: $request->input('numero'),
+            bairro: $request->input('bairro'),
+            cidade: $request->input('cidade'),
+            estado: $request->input('estado'),
+            cep: $request->input('cep')
+        );
+    
+        $clienteDto = new ClientesDTO(
+            nome: $request->input('nome'),
+            cpf: $request->input('cpf'),
+            enderecoDto: $enderecoDTO
+        );
+        //$clienteDto = ClientesDTO::fromArray($request->validated());
 
         $response = $this->clientes_repository->createUpdateCliente(dto:$clienteDto, id:$id);
 
