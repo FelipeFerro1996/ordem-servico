@@ -2,6 +2,7 @@
 
 namespace App\Rules;
 
+use App\Http\repositories\ClientesRepository;
 use App\Models\Clientes;
 use Closure;
 use Illuminate\Contracts\Validation\ValidationRule;
@@ -24,14 +25,11 @@ class CpfUnico implements ValidationRule
     {
         $cpf = preg_replace('/\D/', '', $value);
         $cpfHash = hash('sha256', $cpf);
+       
+        $cliente_repository = New ClientesRepository();
+        $cliente = $cliente_repository->getClienteBycpf(cpf:$cpfHash, ignoreId:$this->ignoreId??'');
 
-        $query = Clientes::where('cpf', $cpfHash);
-
-        if ($this->ignoreId) {
-            $query->where('id', '!=', $this->ignoreId);
-        }
-
-        if ($query->exists()) {
+        if (!empty($cliente->id)) {
             $fail('Esse CPF já está cadastrado.');
         }
     }

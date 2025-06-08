@@ -4,12 +4,14 @@ namespace App\Http\DTOs;
 
 use PhpParser\Node\Expr\Cast\Array_;
 
-class ClientesDTO
+class OrdemServicoDTO
 {
     public function __construct(
-        public readonly string $nome,
-        public readonly string $cpf,
-        public readonly ?EnderecoDTO $enderecoDto = NULL
+        public readonly string $numero,
+        public readonly string $data_abertura,
+        public readonly string $cpf_consumidor,
+        public readonly string $nome_consumidor,
+        public readonly string $produtos_id
     ) {}
 
     public static function fromArray(array $data): self

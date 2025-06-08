@@ -12,7 +12,7 @@ class ClientesRepository implements ClientesInterface
     public function getAllClientes(){
         $clientes = new Clientes();
 
-        return $clientes->with('endereco')->paginate(10);
+        return $clientes->with('endereco')->with('ordens')->paginate(10);
     }
 
     public function createUpdateCliente(ClientesDTO $dto, $id = NULL): array {
@@ -25,17 +25,20 @@ class ClientesRepository implements ClientesInterface
                 $cliente = Clientes::create($dto->toArray());
             }
 
-            $cliente->endereco()->updateOrCreate(
-                ['clientes_id' => $cliente->id], // condição
-                [
-                    'rua' => $dto->enderecoDto->rua,
-                    'numero' => $dto->enderecoDto->numero,
-                    'bairro' => $dto->enderecoDto->bairro,
-                    'cidade' => $dto->enderecoDto->cidade,
-                    'estado' => $dto->enderecoDto->estado,
-                    'cep' => $dto->enderecoDto->cep,
-                ]
-            );
+            if(!empty($dto->enderecoDto)){
+
+                $cliente->endereco()->updateOrCreate(
+                    ['clientes_id' => $cliente->id], // condição
+                    [
+                        'rua' => $dto->enderecoDto->rua,
+                        'numero' => $dto->enderecoDto->numero,
+                        'bairro' => $dto->enderecoDto->bairro,
+                        'cidade' => $dto->enderecoDto->cidade,
+                        'estado' => $dto->enderecoDto->estado,
+                        'cep' => $dto->enderecoDto->cep,
+                    ]
+                );
+            }
 
             return [
                 'success' => true,
@@ -76,5 +79,19 @@ class ClientesRepository implements ClientesInterface
             ];
 
         }
+    }
+
+    public function getClienteBycpf($cpf = NULL, $ignoreId = NULL){
+
+        $cpf = preg_replace('/\D/', '', $cpf);
+        $cpfHash = hash('sha256', $cpf);
+
+        $query = Clientes::where('cpf', $cpfHash);
+
+        if ($ignoreId) {
+            $query->where('id', '!=', $ignoreId);
+        }
+
+        return $query->first();
     }
 }
