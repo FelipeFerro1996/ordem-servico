@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\DTOs\ProdutosDTO;
 use App\Http\interfaces\ProdutosInterface;
 use App\Http\Requests\ProdutosRequest;
+use App\Models\Produtos;
 use Illuminate\Http\Request;
 
 class ProdutosController extends Controller
@@ -66,5 +67,13 @@ class ProdutosController extends Controller
         $response = $this->produtos_repository->delete($id);
 
         return response()->json($response, $response['success'] ? 200 : 500);
+    }
+
+    public function getAllProdutos(Request $request){
+        $termo = $request->input('q');
+
+        $produtos = $this->produtos_repository->getAllProdutosSelect($termo);
+
+        return response()->json($produtos);
     }
 }

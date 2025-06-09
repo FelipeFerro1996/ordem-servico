@@ -16,13 +16,19 @@ Route::middleware(['jwt.auth'])->group(function () {
     Route::middleware('admin')->group(function () {
         Route::apiResource('clientes', ClientesController::class);
         Route::apiResource('produtos', ProdutosController::class);
-        Route::post('/ordem_servico', [OrdemServicoController::class, 'store'])->name('ordem_servico');
     });
     
-    Route::post('/ordem_servico', [OrdemServicoController::class, 'store'])->name('ordem_servico');
+    Route::post('/ordem-servico', [OrdemServicoController::class, 'store'])->name('ordem_servico');
+    Route::get('/lista-ordens-servicos', [OrdemServicoController::class, 'index'])->name('lista_ordens_servicos');
 
     Route::middleware('user')->group(function () {
     });
+
+    Route::get('/produtos-busca', [ProdutosController::class, 'getAllProdutos']);
+});
+
+Route::middleware(['jwt.auth'])->get('/me', function (Request $request) {
+    return response()->json(auth()->user());
 });
 
 Route::post('/login-token',[UserController::class, 'login_token']);

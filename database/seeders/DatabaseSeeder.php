@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Produtos;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -34,5 +35,7 @@ class DatabaseSeeder extends Seeder
             'password'=>'12345678',
             'role'=>'user'
         ]);
+
+        Produtos::factory(50)->create();
     }
 }

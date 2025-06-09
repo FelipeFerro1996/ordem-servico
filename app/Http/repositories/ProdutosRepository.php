@@ -65,4 +65,14 @@ class ProdutosRepository implements ProdutosInterface
 
         }
     }
+
+    public function getAllProdutosSelect($palavra_chave = NULL){
+        
+        $produtos = Produtos::where('descricao', 'like', "%{$palavra_chave}%")
+            ->orWhere('codigo', 'like', "%{$palavra_chave}%")
+            ->limit(20)
+            ->get(['id', 'codigo', 'descricao']);
+
+        return $produtos;
+    }
 }

@@ -13,6 +13,15 @@ class OrdemServicoController extends Controller
         public OrdemServicoInterface $ordem_servico_repository
     ) {}
 
+    public function index()
+    {
+        $clientes = $this->ordem_servico_repository->getAllOrdensServicos();
+
+        return response()->json([
+            'dados'=>$clientes
+        ], 200);
+    }
+
     public function store(OrdemServicoRequest $request){
 
         $ordemServicoDTO = OrdemServicoDTO::fromArray($request->validated());

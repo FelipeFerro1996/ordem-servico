@@ -10,6 +10,16 @@ use Exception;
 
 class OrdemServicoRepository implements OrdemServicoInterface
 {
+
+    public function getAllOrdensServicos(){
+        $ordens = new OrdemServico();
+        return $ordens
+                ->orderBy('data_abertura', 'DESC')
+                ->with('produto')
+                ->with('cliente')
+                ->paginate(10);
+    }
+
     public function insertOrdemServico(OrdemServicoDTO $dto): array{
         try{
 
