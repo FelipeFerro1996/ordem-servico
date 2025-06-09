@@ -4,7 +4,7 @@
 
     <div class="card">
         <div class="card-header d-flex justify-content-beteween">
-            Clientes
+            Ordens de serviço
 
             <a class="btn btn-primary ms-auto" href="{{ route('CadastroOrdemServico') }}">
                 <i class="bi bi-plus"></i>
