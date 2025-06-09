@@ -20,7 +20,6 @@
                             <td scope="col">Cliente</td>
                             <td scope="col">Produto</td>
                             <td scope="col">Data Abertura</td>
-                            <td scope="col">Ações</td>
                         </tr>
                     </thead>
                     <tbody>

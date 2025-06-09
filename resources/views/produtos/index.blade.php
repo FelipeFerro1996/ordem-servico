@@ -5,6 +5,11 @@
     <div class="card">
         <div class="card-header d-flex justify-content-beteween">
             Produtos
+
+            <a class="btn btn-primary ms-auto" href="{{ route('cadastroProduto') }}">
+                <i class="bi bi-plus"></i>
+                Novo
+            </a>
         </div>
         <div class="card-body">
             <div class="table-responsive">

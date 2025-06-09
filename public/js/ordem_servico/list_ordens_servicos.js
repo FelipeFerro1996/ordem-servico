@@ -24,7 +24,6 @@ async function CarregarOrdens(pagina = 1) {
                     <td>${ordem.cliente.nome}</td>
                     <td>${ordem.produto.descricao}</td>
                     <td>${ordem.data_abertura}</td>
-                    <td><i class="bi bi-trash text-danger"></i></td>
                 </tr>
             `;
             tbody.append(linha);

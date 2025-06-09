@@ -26,7 +26,7 @@ Route::prefix('produtos')->group(function(){
     })->name('listaProdutos');
 
     Route::get('/create', function(){
-        return view('produtos.formProdutos');
+        return view('produtos.formCadastroProdutos');
     })->name('cadastroProduto');
 });
 

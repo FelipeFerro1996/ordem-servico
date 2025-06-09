@@ -7,7 +7,13 @@ $(document).ready(function(){
         carregarProdutos(pagina);
     });
 
+    $('body').on('click', '.btn-deletar', function () {
+        const id = $(this).data('id');
+        deletarProdutos(id);
+    });
+
 });
+
 async function carregarProdutos(pagina = 1) {
     try {
         const response = await ApiService.get(`/produtos?page=${pagina}`);
@@ -24,7 +30,7 @@ async function carregarProdutos(pagina = 1) {
                     <td>${produto.descricao}</td>
                     <td>${produto.status}</td>
                     <td>${produto.tempo_garantia}</td>
-                    <td><i class="bi bi-trash text-danger"></i></td>
+                    <td><i class="bi bi-trash text-danger btn-deletar" data-id="${produto.id}" style="cursor: pointer;"></i></td>
                 </tr>
             `;
             tbody.append(linha);
@@ -37,3 +43,23 @@ async function carregarProdutos(pagina = 1) {
     }
 }
 
+async function deletarProdutos(id) {
+    const confirmado = await Swal.fire({
+        title: 'Tem certeza?',
+        text: "Essa ação não pode ser desfeita!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Sim, deletar!',
+        cancelButtonText: 'Cancelar'
+    });
+
+    if (confirmado.isConfirmed) {
+        try {
+            await ApiService.delete(`/produtos/${id}`);
+            Swal.fire('Deletado!', 'O registro foi removido com sucesso.', 'success');
+            carregarProdutos(); // atualiza a lista
+        } catch (error) {
+            handleApiError(error);
+        }
+    }
+}
