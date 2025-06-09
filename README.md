@@ -87,6 +87,15 @@ php artisan migrate --seed
 
 ---
 
+## 📘 Documentação da API
+
+A documentação da API está disponível no link abaixo:
+
+👉 [Ver documentação no Postman](https://documenter.getpostman.com/view/33788285/2sB2x3nYzi)  
+
+
+---
+
 ## 📄 Licença
 
 Este projeto está licenciado sob a [MIT License](LICENSE).
