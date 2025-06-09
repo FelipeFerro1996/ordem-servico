@@ -1,4 +1,4 @@
-# 🧰 Sistema de Gestão com Laravel + JWT + jQuery
+# 🧰 Sistema de Ordem de Serviço com Laravel + JWT + jQuery
 
 Este projeto é uma aplicação web construída em Laravel com autenticação via JWT, consumo de API com jQuery + Axios, gerenciamento de usuários e permissões (admin e user), máscaras de campos, integração com Select2, Bootstrap 5 com suporte a tema escuro e muito mais.
 
